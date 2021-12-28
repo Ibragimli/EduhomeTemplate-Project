@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,6 +18,7 @@ namespace EduhomeTemplate.Models
         public string Experience { get; set; }
         public string Hobbies { get; set; }
         public string Faculty { get; set; }
+        
 
     }
 }
