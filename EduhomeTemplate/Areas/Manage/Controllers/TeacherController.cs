@@ -1,4 +1,6 @@
-﻿using EduhomeTemplate.Models;
+﻿using EduhomeTemplate.Helper;
+using EduhomeTemplate.Models;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,9 +13,12 @@ namespace EduhomeTemplate.Areas.Manage.Controllers
     public class TeacherController : Controller
     {
         private readonly DataContext _context;
-        public TeacherController(DataContext context)
+        private readonly IWebHostEnvironment _env;
+
+        public TeacherController(DataContext context,IWebHostEnvironment env)
         {
             _context = context;
+            _env = env;
         }
         public IActionResult Index()
         {
@@ -25,9 +30,20 @@ namespace EduhomeTemplate.Areas.Manage.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-
-        public IActionResult Create(Teacher teacher )
+        public IActionResult Create(Teacher teacher)
         {
+            if (teacher.ImageFile == null)
+                ModelState.AddModelError("ImageFile", "ImageFile is required");
+            else if (teacher.ImageFile.Length > 2097152)
+                ModelState.AddModelError("ImageFile", "ImageSize max size is 2MB");
+            else if (teacher.ImageFile.ContentType != "image/jpeg" && teacher.ImageFile.ContentType != "image/png")
+                ModelState.AddModelError("ImageFile", "Image type is only (png,jpeg)");
+
+
+            if (!ModelState.IsValid) return View();
+
+            teacher.Image = FileManager.Save(_env.WebRootPath, "uploads/teachers", teacher.ImageFile);
+
             _context.teachers.Add(teacher);
             _context.SaveChanges();
             return RedirectToAction("index");

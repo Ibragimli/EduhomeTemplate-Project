@@ -18,7 +18,8 @@ namespace EduhomeTemplate.Models
         public string Experience { get; set; }
         public string Hobbies { get; set; }
         public string Faculty { get; set; }
-        
-
+        public string Image { get; set; }
+        [NotMapped]
+        public IFormFile ImageFile { get; set; }
     }
 }

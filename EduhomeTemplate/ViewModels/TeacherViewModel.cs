@@ -8,6 +8,6 @@ namespace EduhomeTemplate.ViewModels
 {
     public class TeacherViewModel
     {
-            public List<Teacher> teachers { get; set; }
+            public List<Teacher> Teachers { get; set; }
     }
 }

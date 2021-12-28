@@ -14,20 +14,22 @@ namespace EduhomeTemplate.Controllers
 
         public TeacherController(DataContext context)
         {
-           _context = context;
+            _context = context;
         }
         public IActionResult Index()
         {
             TeacherViewModel teacherVM = new TeacherViewModel
             {
-                teachers = _context.teachers.ToList(),
+                Teachers = _context.teachers.ToList(),
             };
-            return View();
+            return View(teacherVM);
         }
 
         public IActionResult Detail(int id)
         {
-            return View();
+            Teacher teacher = _context.teachers.FirstOrDefault(x => x.Id == id);
+
+            return View(teacher);
         }
     }
 }
