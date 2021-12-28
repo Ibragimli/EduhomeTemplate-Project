@@ -9,5 +9,6 @@ namespace EduhomeTemplate.ViewModels
     public class HomeViewModel
     {
         public List<Course> Courses { get; set; }
+        public List<NoticeBoard> noticeBoards { get; set; }
     }
 }

@@ -13,6 +13,7 @@ namespace EduhomeTemplate.Models
         }
 
         public DbSet<Course> Courses { get; set; }
-
+        public DbSet<NoticeBoard> noticeBoards { get; set; }
+        public DbSet<Teacher> teachers { get; set; }
     }
 }

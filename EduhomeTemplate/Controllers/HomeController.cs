@@ -24,6 +24,7 @@ namespace EduhomeTemplate.Controllers
             HomeViewModel homeVM = new HomeViewModel
             {
                 Courses = _context.Courses.ToList(),
+                noticeBoards = _context.noticeBoards.ToList(),
             };
             return View(homeVM);
         }
