@@ -15,7 +15,7 @@ namespace EduhomeTemplate.Areas.Manage.Controllers
         private readonly DataContext _context;
         private readonly IWebHostEnvironment _env;
 
-        public TeacherController(DataContext context,IWebHostEnvironment env)
+        public TeacherController(DataContext context, IWebHostEnvironment env)
         {
             _context = context;
             _env = env;
@@ -76,6 +76,18 @@ namespace EduhomeTemplate.Areas.Manage.Controllers
             teacherExist.Hobbies = teacher.Hobbies;
             teacherExist.Level = teacher.Level;
             teacherExist.DescLitlle = teacher.DescLitlle;
+            if (teacher.ImageFile != null)
+            {
+                FileManager.Delete(_env.WebRootPath, "uploads/teachers", teacherExist.Image);
+                teacherExist.Image = FileManager.Save(_env.WebRootPath, "uploads/teachers", teacher.ImageFile);
+            }
+            else if (teacher.Image == null && teacherExist.Image != null)
+            {
+                FileManager.Delete(_env.WebRootPath, "uploads/teachers", teacherExist.Image);
+                teacherExist.Image = null;
+
+            }
+            
             _context.SaveChanges();
             return RedirectToAction("index");
         }

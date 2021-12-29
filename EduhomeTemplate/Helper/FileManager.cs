@@ -22,5 +22,15 @@ namespace EduhomeTemplate.Helper
             }
             return filename;
         }
+        public static bool Delete(string rootPath, string folder, string filename)
+        {
+            string path = Path.Combine(rootPath, folder, filename);
+            if (System.IO.File.Exists(path))
+            {
+                System.IO.File.Delete(path);
+                return true;
+            }
+            return false;
+        }
     }
 }
