@@ -111,7 +111,10 @@ namespace EduhomeTemplate.Controllers
         {
 
             AppUser user = await _userManager.FindByNameAsync(User.Identity.Name);
-
+            if (user == null)
+            {
+                return NotFound();
+            }
             MemberProfileViewModel profilVM = new MemberProfileViewModel
             {
                 Username = user.UserName,
@@ -119,7 +122,6 @@ namespace EduhomeTemplate.Controllers
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
                 BornDate = user.BornDate,
-
             };
             return View(profilVM);
         }
@@ -127,9 +129,29 @@ namespace EduhomeTemplate.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Profil(MemberProfileViewModel profilVM)
         {
-
             AppUser user = await _userManager.FindByNameAsync(User.Identity.Name);
-            return View(user);
+
+            if (profilVM == null)
+            {
+                return NotFound();
+            }
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            user.Fullname = profilVM.Fullname;
+            if (profilVM.Email != user.Email && _dataContext.Users.Any(x => x.NormalizedEmail == profilVM.Email.ToUpper()))
+            {
+                ModelState.AddModelError("Email", "Email already exist");
+                return RedirectToAction("profil", "account");
+            }
+            user.Email = profilVM.Email;
+            user.BornDate = profilVM.BornDate;
+            user.PhoneNumber = profilVM.PhoneNumber;
+
+            await _userManager.UpdateAsync(user);
+            return RedirectToAction("profil", "account");
         }
     }
 }

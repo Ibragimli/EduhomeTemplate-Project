@@ -8,13 +8,11 @@ namespace EduhomeTemplate.ViewModels
 {
     public class MemberProfileViewModel
     {
-        [Required]
         [StringLength(maximumLength: 20)]
         public string Username { get; set; }
         [Required]
         [StringLength(maximumLength: 20)]
         public string Fullname { get; set; }
-        [Required]
         [StringLength(maximumLength: 20)]
         public string Email { get; set; }
         [StringLength(maximumLength: 15)]
