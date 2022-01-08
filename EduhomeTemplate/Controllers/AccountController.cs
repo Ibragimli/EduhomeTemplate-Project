@@ -105,5 +105,9 @@ namespace EduhomeTemplate.Controllers
             return RedirectToAction("index", "home");
         }
 
+        //public async Task<IActionResult> Profil()
+        //{
+
+        //}
     }
 }
