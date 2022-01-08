@@ -139,12 +139,12 @@ namespace EduhomeTemplate.Controllers
             {
                 return View();
             }
-
+            
             user.Fullname = profilVM.Fullname;
-            if (profilVM.Email != user.Email && _dataContext.Users.Any(x => x.NormalizedEmail == profilVM.Email.ToUpper()))
+            if (profilVM.Email != user.Email && _userManager.Users.Any(x => x.NormalizedEmail!= profilVM.Email.ToUpper()))
             {
                 ModelState.AddModelError("Email", "Email already exist");
-                return RedirectToAction("profil", "account");
+                return View();
             }
             user.Email = profilVM.Email;
             user.BornDate = profilVM.BornDate;
