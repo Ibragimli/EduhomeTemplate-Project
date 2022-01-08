@@ -44,8 +44,8 @@
                                 @if (User.Identity.IsAuthenticated)
                                 {
 
-                                   
-                                    <li><a style="color:red" >@User.Identity.Name</a></li>
+
+                                    <li><a asp-action="profil" asp-controller="account" style="color:red">@User.Identity.Name</a></li>
 
                                     <li><a asp-action="Logout" asp-controller="account">Logout</a></li>
                                 }

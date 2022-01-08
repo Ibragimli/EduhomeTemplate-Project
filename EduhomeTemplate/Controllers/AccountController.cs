@@ -1,5 +1,6 @@
 ﻿using EduhomeTemplate.Models;
 using EduhomeTemplate.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -38,7 +39,7 @@ namespace EduhomeTemplate.Controllers
 
             AppUser user = await _userManager.FindByNameAsync(loginVM.Username);
 
-            if (user==null)
+            if (user == null)
             {
                 ModelState.AddModelError("", "UserName or Passowrd is incorrect!");
                 return View();
@@ -50,7 +51,7 @@ namespace EduhomeTemplate.Controllers
                 ModelState.AddModelError("", "UserName or Passowrd is incorrect!");
                 return View();
             }
-            return RedirectToAction("index","home");
+            return RedirectToAction("index", "home");
         }
         public IActionResult Register()
         {
@@ -101,13 +102,34 @@ namespace EduhomeTemplate.Controllers
         public async Task<IActionResult> Logout()
         {
 
-             await _signInManager.SignOutAsync();
+            await _signInManager.SignOutAsync();
             return RedirectToAction("index", "home");
         }
 
-        //public async Task<IActionResult> Profil()
-        //{
+        [Authorize(Roles = "Member")]
+        public async Task<IActionResult> Profil()
+        {
 
-        //}
+            AppUser user = await _userManager.FindByNameAsync(User.Identity.Name);
+
+            MemberProfileViewModel profilVM = new MemberProfileViewModel
+            {
+                Username = user.UserName,
+                Fullname = user.Fullname,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
+                BornDate = user.BornDate,
+
+            };
+            return View(profilVM);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Profil(MemberProfileViewModel profilVM)
+        {
+
+            AppUser user = await _userManager.FindByNameAsync(User.Identity.Name);
+            return View(user);
+        }
     }
 }
