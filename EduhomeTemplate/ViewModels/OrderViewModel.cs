@@ -7,7 +7,6 @@ namespace EduhomeTemplate.ViewModels
 {
     public class OrderViewModel
     {
-        public int OrderId { get; set; }
         public string Title { get; set; }
         public string Image { get; set; }
         public string Language { get; set; }
