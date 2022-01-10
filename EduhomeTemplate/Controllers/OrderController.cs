@@ -27,6 +27,10 @@ namespace EduhomeTemplate.Controllers
         {
 
             Course course = _context.Courses.FirstOrDefault(x => x.Id == id);
+            if (course == null)
+            {
+                return NotFound();
+            }
             AppUser appUser = await _userManager.FindByNameAsync(User.Identity.Name);
             if (appUser == null)
             {
