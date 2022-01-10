@@ -80,5 +80,15 @@ namespace EduhomeTemplate.Controllers
             }
             return Json(basketItem);
         }
+
+        public IActionResult Detail(int id)
+        {
+            Course course = _context.Courses.FirstOrDefault(x => x.Id == id);
+            if (course == null)
+            {
+                return NotFound();
+            }
+            return View(course);
+        }
     }
 }

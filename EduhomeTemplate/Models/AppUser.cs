@@ -12,5 +12,6 @@ namespace EduhomeTemplate.Models
         [StringLength(maximumLength:50)]
         public string Fullname { get; set; }
         public DateTime BornDate { get; set; }
+        public List<Order> Orders { get; set; }
     }
 }

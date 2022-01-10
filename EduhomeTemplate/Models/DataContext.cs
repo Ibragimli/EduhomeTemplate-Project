@@ -17,5 +17,6 @@ namespace EduhomeTemplate.Models
         public DbSet<NoticeBoard> noticeBoards { get; set; }
         public DbSet<Teacher> teachers { get; set; }
         public DbSet<AppUser> users { get; set;}
+        public DbSet<Order> Orders { get; set; }
     }
 }

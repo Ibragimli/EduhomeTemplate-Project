@@ -11,5 +11,8 @@ namespace EduhomeTemplate.Models
         public string Title { get; set; }
         public string Desc { get; set; }
         public string Image { get; set; }
+        public string Language { get; set; }
+        public double Price { get; set; }
+        public DateTime Time { get; set; }
     }
 }

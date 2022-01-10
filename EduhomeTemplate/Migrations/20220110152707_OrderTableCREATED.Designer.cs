@@ -4,14 +4,16 @@ using EduhomeTemplate.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EduhomeTemplate.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220110152707_OrderTableCREATED")]
+    partial class OrderTableCREATED
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -74,9 +76,6 @@ namespace EduhomeTemplate.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("AppUserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("CourseName")
                         .HasColumnType("nvarchar(max)");
 
@@ -92,12 +91,10 @@ namespace EduhomeTemplate.Migrations
                     b.Property<DateTime>("OrderTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AppUserId");
 
                     b.ToTable("Orders");
                 });
@@ -356,13 +353,6 @@ namespace EduhomeTemplate.Migrations
                         .HasMaxLength(50);
 
                     b.HasDiscriminator().HasValue("AppUser");
-                });
-
-            modelBuilder.Entity("EduhomeTemplate.Models.Order", b =>
-                {
-                    b.HasOne("EduhomeTemplate.Models.AppUser", "AppUser")
-                        .WithMany("Orders")
-                        .HasForeignKey("AppUserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
