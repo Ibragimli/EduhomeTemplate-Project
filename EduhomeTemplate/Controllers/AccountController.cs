@@ -122,6 +122,7 @@ namespace EduhomeTemplate.Controllers
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
                 BornDate = user.BornDate,
+                Orders = _dataContext.Orders.Where(x=>x.AppUserId==user.Id).ToList()
             };
             return View(profilVM);
         }

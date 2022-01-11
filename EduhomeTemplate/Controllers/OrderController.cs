@@ -1,4 +1,5 @@
 ﻿using EduhomeTemplate.Models;
+using EduhomeTemplate.Services;
 using EduhomeTemplate.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -13,11 +14,13 @@ namespace EduhomeTemplate.Controllers
     {
         private readonly DataContext _context;
         private readonly UserManager<AppUser> _userManager;
+        private readonly IEmailService _emailService;
 
-        public OrderController(DataContext context, UserManager<AppUser> userManager)
+        public OrderController(DataContext context, UserManager<AppUser> userManager,IEmailService emailService)
         {
             _context = context;
             _userManager = userManager;
+            _emailService = emailService;
         }
         public IActionResult Index()
         {
@@ -31,11 +34,8 @@ namespace EduhomeTemplate.Controllers
             {
                 return NotFound();
             }
-            AppUser appUser = await _userManager.FindByNameAsync(User.Identity.Name);
-            if (appUser == null)
-            {
-                return NotFound();
-            }
+            AppUser appUser = null;
+            appUser = await _userManager.FindByNameAsync(User.Identity.Name);
 
             Order order = new Order()
             {
@@ -49,7 +49,11 @@ namespace EduhomeTemplate.Controllers
             };
             _context.Orders.Add(order);
             _context.SaveChanges();
+
+            _emailService.Send(order.AppUser.Email, "Satin Alma", order.Fullname);
+
             return RedirectToAction("index", "home");
         }
     }
+
 }

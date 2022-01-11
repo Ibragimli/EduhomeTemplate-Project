@@ -29,7 +29,7 @@
                         <div class="row mb-3">
                             <div class="col-md-12">
                                 <label class="labels">Email </label><input asp-for="Email" class="form-control" placeholder="enter email  ">
-                                <span  asp-validation-for="Email"  class="text-danger"></span>
+                                <span asp-validation-for="Email" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -51,6 +51,40 @@
         </div>
 
     </div>
+    <div class="row">
+        <div class="col-12">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">CourseName</th>
+                        <th scope="col">Language</th>
+                        <th scope="col">Fullname</th>
+                        <th scope="col">OrderTime</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model.Orders)
+                    {
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>@item.Price</td>
+                            <td>@item.CourseName</td>
+                            <td>@item.Language</td>
+                            <td>@item.Fullname</td>
+                            <td>@item.OrderTime</td>
+                        </tr>
+
+                    }
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 </div>
 @section Scripts{
     @await Html.PartialAsync("_ValidationScriptsPartial")

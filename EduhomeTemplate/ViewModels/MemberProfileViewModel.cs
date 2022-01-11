@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EduhomeTemplate.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -13,11 +14,12 @@ namespace EduhomeTemplate.ViewModels
         [Required]
         [StringLength(maximumLength: 20)]
         public string Fullname { get; set; }
-        [StringLength(maximumLength: 20)]
+        [StringLength(maximumLength: 50)]
         public string Email { get; set; }
         [StringLength(maximumLength: 15)]
         public string PhoneNumber { get; set; }
         public DateTime BornDate { get; set; }
+        public List<Order> Orders { get; set; }
 
     }
 }
