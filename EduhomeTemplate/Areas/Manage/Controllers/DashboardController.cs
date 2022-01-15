@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 namespace EduhomeTemplate.Areas.Manage.Controllers
 {
     [Area("manage")]
-    [Authorize]
     public class DashboardController : Controller
     {
         private readonly UserManager<AppUser> _userManager;

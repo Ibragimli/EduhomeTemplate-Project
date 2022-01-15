@@ -43,16 +43,6 @@
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" href="index.html">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span>
-                </a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
 
 
             <!-- Nav Item - Pages Collapse Menu -->
@@ -64,15 +54,14 @@
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-
                         <a class="collapse-item" asp-controller="noticeboard" asp-action="index">NoticeBoard</a>
                         <a class="collapse-item" asp-controller="teacher" asp-action="index">Teacher</a>
-
+                        <a class="collapse-item" asp-controller="role" asp-action="index">Role Panel</a>
                     </div>
                 </div>
             </li>
 
-            
+
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
@@ -351,13 +340,10 @@
         <!-- Custom scripts for all pages-->
         <script src="~/manage/js/sb-admin-2.min.js"></script>
 
-        <!-- Page level plugins -->
-        <script src="~/manage/vendor/chart.js/Chart.min.js"></script>
+  
 
-        <!-- Page level custom scripts -->
-        <script src="~/manage/js/demo/chart-area-demo.js"></script>
-        <script src="~/manage/js/demo/chart-pie-demo.js"></script>
         <script src="~/manage/js/main.js"></script>
+        @RenderSection("Scripts", required: false);
 </body>
 
 </html>
